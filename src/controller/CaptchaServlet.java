@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 import javax.imageio.ImageIO;
 import javax.servlet.*;
@@ -11,6 +11,7 @@ import java.util.Random;
 
 /**
  * 生成验证码的Servlet
+ * @author Steven Suo
  */
 @WebServlet(name = "CaptchaServlet", value = "/captcha")
 public class CaptchaServlet extends HttpServlet {
@@ -22,6 +23,8 @@ public class CaptchaServlet extends HttpServlet {
      * 生成的图片的高度
      */
     public static final int HEIGHT = 30;
+
+    public static final String CAPTCHA = "code";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1.在内存中创建一张图片
@@ -37,6 +40,8 @@ public class CaptchaServlet extends HttpServlet {
         //6.写在图片上随机数
         //根据客户端传递的createTypeFlag标识生成验证码图片
         String random = drawRandomNum((Graphics2D) g);
+        request.getSession().setAttribute(CAPTCHA,random);
+        System.out.println("验证码："+random);
         response.setContentType("image/jpeg");
         //9.设置响应头控制浏览器不要缓存
         response.setDateHeader("expries", -1);
@@ -46,10 +51,7 @@ public class CaptchaServlet extends HttpServlet {
         ImageIO.write(bi, "jpg", response.getOutputStream());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
     /**
      * 设置图片的背景色
      * @param g

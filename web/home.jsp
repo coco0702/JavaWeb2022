@@ -1,4 +1,7 @@
-﻿
+﻿<%@ page import="entity.User" %>
+<!--JSP的page指令，指令元素-->
+<%@ page import="java.util.Date" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -45,7 +48,26 @@
     <div class="page-header">
       <h1>成功登录！</h1>
     </div>
-    <p class="lead">欢迎您：注册用户名！</p>
+    <p class="lead">欢迎您：
+    <%
+        User loginUser = (User) session.getAttribute("loginUser");
+        out.println(loginUser.getUserName());
+        out.println(loginUser.getPwd());
+    %>
+    </p>
+    <p class="lead">欢迎您：<%=(User)session.getAttribute("loginUser")%></p>
+    <p class="lead">用户名：<c:out value="${loginUser1.userName}" default="Guest"/></p>
+    <p class="lead">用户名：${sessionScope.users[0].userName}</p>
+    <p class="lead">密码：${sessionScope.users[0].pwd}</p>
+
+      <c:forEach items="${sessionScope.users}" var="u">
+          <td>${u.userName}</td>
+          <td>${u.pwd}</td>
+      </c:forEach>
+
+
+
+
   </div>
 </div>
 

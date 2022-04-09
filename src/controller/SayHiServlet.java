@@ -1,13 +1,12 @@
-package servlets;
+package controller;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 打招呼
@@ -17,7 +16,6 @@ import java.util.Map;
  */
 @WebServlet(name = "SayHiServlet", value = "/sayHi.do")
 public class SayHiServlet extends HttpServlet {
-
     @Override
     public void init() throws ServletException {
 
